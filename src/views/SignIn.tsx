@@ -1,12 +1,9 @@
-import { Button, TextInput } from "flowbite-react";
-import { useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
-import { toasterState } from "../atoms/ui";
+import { TextInput } from "flowbite-react";
+import { useState } from "react";
 import { ButtonForm } from "../components/ui/ButtonForm";
 import { PageTemplate } from "../components/ui/PageTemplate";
-import { StyleProps, Toaster } from "../components/ui/Toaster";
+import { Toaster } from "../components/ui/Toaster";
 import { useSignIn } from "../hooks/useSignIn";
-import { handleToggleToaster } from "../services/atoms";
 
 interface formProps {
   email: string;
@@ -18,36 +15,12 @@ export const SignIn = () => {
     email: "",
     password: "",
   });
-  const [toaster, setToaster] = useRecoilState(toasterState);
 
-  const { mutateAsync, isLoading, isSuccess, isError } = useSignIn();
-
-  useEffect(() => {
-    if (isSuccess) {
-      handleToaster("success", "You are gonna be redirected");
-    }
-    if (isError) {
-      handleToaster("danger", "Bad email/password");
-    }
-  }, [isSuccess, isError]);
+  const { mutateAsync, isLoading } = useSignIn();
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     await mutateAsync(form);
-  };
-
-  const handleToaster = (type: StyleProps, value: string) => {
-    setToaster({
-      display: true,
-      type,
-      value,
-    });
-    setTimeout(() => {
-      setToaster({
-        ...toaster,
-        display: false,
-      });
-    }, 2000);
   };
 
   return (

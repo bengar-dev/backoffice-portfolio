@@ -2,7 +2,7 @@ import { Button } from "flowbite-react";
 import { CgSpinner } from "react-icons/cg";
 
 interface ButtonFormProps {
-  value: string;
+  value: string | React.ReactNode;
   type: "submit" | "button";
   loading: boolean;
   color?:
@@ -14,6 +14,8 @@ interface ButtonFormProps {
     | "failure"
     | "warning"
     | "purple";
+  fullWidth?: boolean;
+  func?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 export const ButtonForm: React.FC<ButtonFormProps> = ({
@@ -21,9 +23,20 @@ export const ButtonForm: React.FC<ButtonFormProps> = ({
   type,
   color = "info",
   value,
+  fullWidth = false,
+  func,
 }) => {
   return (
-    <Button color={color} type={type}>
+    <Button
+      color={color}
+      type={type}
+      fullSized={fullWidth}
+      onClick={(event) => {
+        if (func) {
+          func(event);
+        }
+      }}
+    >
       {loading ? <CgSpinner className="text-lg animate-spin" /> : value}{" "}
     </Button>
   );

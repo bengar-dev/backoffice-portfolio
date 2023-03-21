@@ -13,11 +13,16 @@ export const axiosRequest = async ({
   data,
   token,
 }: AxiosRequestProps): AxiosPromise => {
-  return await axios[method](
-    `${import.meta.env.VITE_API_HOST}/${target}`,
-    data,
-    {
-      headers: { Authorization: `Bearer ${token}` },
-    }
-  );
+  if (data) {
+    return await axios[method](
+      `${import.meta.env.VITE_API_HOST}/${target}`,
+      data,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+  }
+  return await axios[method](`${import.meta.env.VITE_API_HOST}/${target}`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
 };

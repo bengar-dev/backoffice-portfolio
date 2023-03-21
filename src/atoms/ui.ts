@@ -1,4 +1,4 @@
-import { atom } from "recoil";
+import { atom, selector } from "recoil";
 import { StyleProps } from "../components/ui/Toaster";
 
 interface toasterStateProps {
@@ -13,5 +13,15 @@ export const toasterState = atom<toasterStateProps>({
     display: false,
     type: "info",
     value: "",
+  },
+});
+
+export const updateToaster = selector({
+  key: "updateToaster",
+  get: ({ get }) => {
+    return get(toasterState);
+  },
+  set: ({ set, get }, newToaster) => {
+    set(toasterState, newToaster);
   },
 });

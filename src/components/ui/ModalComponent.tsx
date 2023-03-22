@@ -15,7 +15,11 @@ export const ModalComponent: React.FC<ModalComponentProps> = ({
 }) => {
   const [toggleModal, setToggleModal] = useRecoilState<boolean>(modalState);
   return (
-    <Modal dismissible show={toggleModal} onClose={() => setToggleModal(false)}>
+    <Modal
+      dismissible={false}
+      show={toggleModal}
+      onClose={() => setToggleModal(false)}
+    >
       <Modal.Header>{title}</Modal.Header>
       <Modal.Body>{children}</Modal.Body>
       {footer && (

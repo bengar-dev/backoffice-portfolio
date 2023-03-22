@@ -17,6 +17,10 @@ interface TableDataProps {
   target: string;
   viewEnable?: boolean;
   editEnable?: boolean;
+  handleEditFunction?: (
+    event: React.MouseEvent<HTMLButtonElement>,
+    id: string
+  ) => void;
   handleDeleteFunction?: (
     event: React.MouseEvent<HTMLButtonElement>,
     id: string
@@ -27,6 +31,8 @@ export const TableData: React.FC<TableDataProps> = ({
   headers,
   data,
   target,
+  editEnable,
+  handleEditFunction,
   handleDeleteFunction,
 }) => {
   return (
@@ -66,7 +72,15 @@ export const TableData: React.FC<TableDataProps> = ({
             ))}
             <Table.Cell>
               <div className="flex w-full gap-2 text-lg justify-end">
-                <Button size="sm" color="warning">
+                <Button
+                  size="sm"
+                  color="warning"
+                  onClick={(event) => {
+                    if (editEnable && handleEditFunction) {
+                      handleEditFunction(event, data.id);
+                    }
+                  }}
+                >
                   <AiFillEdit />
                 </Button>{" "}
                 <Button

@@ -30,3 +30,13 @@ export const modalState = atom<boolean>({
   key: "modalState",
   default: false,
 });
+
+export const closeModal = selector({
+  key: "closeModal",
+  get: ({ get }) => {
+    return get(modalState);
+  },
+  set: ({ set }, newState) => {
+    set(modalState, newState);
+  },
+});

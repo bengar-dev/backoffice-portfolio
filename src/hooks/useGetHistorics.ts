@@ -24,7 +24,6 @@ export const useGetHistorics = () => {
         method: "get",
         target: "about/historic",
       });
-      console.log(response);
       return response;
     },
     refetchOnWindowFocus: false,

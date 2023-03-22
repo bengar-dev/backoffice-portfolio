@@ -6,6 +6,7 @@ import { About } from "./views/About";
 import { Dashboard } from "./views/Dashboard";
 import { Historic } from "./views/Historic";
 import { SignIn } from "./views/SignIn";
+import { Skills } from "./views/Skills";
 
 function App() {
   const [isAuth, setIsAuth] = useState<boolean>(false);
@@ -22,6 +23,7 @@ function App() {
           <Route path="/" element={<Dashboard />} />
           <Route path="/about" element={<About />} />
           <Route path="/historic" element={<Historic />} />
+          <Route path="/skills" element={<Skills />} />
         </Routes>
       ) : (
         <Routes>

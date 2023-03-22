@@ -65,6 +65,8 @@ export const TableData: React.FC<TableDataProps> = ({
                   format(new Date(data[el]), "dd/MM/yyyy")
                 ) : el === "category" ? (
                   renderIconForHistoricCategory(data[el])
+                ) : el === "display" ? (
+                  "display"
                 ) : (
                   data[el]
                 )}

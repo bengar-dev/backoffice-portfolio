@@ -4,6 +4,7 @@ import {
   AiOutlineLogout,
   AiOutlineUser,
 } from "react-icons/ai";
+import { SiReact } from "react-icons/si";
 import { useNavigate } from "react-router-dom";
 import { ButtonForm } from "../ui/ButtonForm";
 import { NavLink } from "./NavLink";
@@ -43,6 +44,7 @@ export const SideBar: React.FC = () => {
             to="/historic"
             value="Historic"
           />
+          <NavLink icon={<SiReact />} to="/skills" value="Skills" />
         </ul>
         <div className="absolute bottom-0 w-full p-4">
           <ButtonForm

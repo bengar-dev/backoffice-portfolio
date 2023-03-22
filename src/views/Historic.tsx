@@ -59,11 +59,7 @@ export const Historic: React.FC = () => {
             <HistoricForm defaultValues={defaultValuesForm} />
           </ModalComponent>
           <div className="p-2 flex justify-end space-x-2">
-            <Button
-              type="button"
-              color="success"
-              onClick={(event) => resetForm(event)}
-            >
+            <Button type="button" color="success" onClick={resetForm}>
               Add new
             </Button>
           </div>

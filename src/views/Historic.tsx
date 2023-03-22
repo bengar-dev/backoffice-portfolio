@@ -9,6 +9,7 @@ import { SideBar } from "../components/nav/SideBar";
 import { LoadingPage } from "../components/ui/LoadingPage";
 import { ModalComponent } from "../components/ui/ModalComponent";
 import { TemplateBlock } from "../components/ui/TemplateBlock";
+import { Toaster } from "../components/ui/Toaster";
 import { useDeleteHistoric } from "../hooks/useDeleteHistoric";
 import { HistoricProps, useGetHistorics } from "../hooks/useGetHistorics";
 
@@ -51,6 +52,7 @@ export const Historic: React.FC = () => {
 
   return (
     <div className="relative">
+      <Toaster />
       <SideBar />
       <TemplateBlock>
         <TitleSection title="Historic" />

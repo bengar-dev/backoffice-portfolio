@@ -5,6 +5,7 @@ import { HistoricCategory, HistoricProps } from "../../hooks/useGetHistorics";
 import { ButtonForm } from "../ui/ButtonForm";
 import _ from "lodash";
 import { useEditHistoric } from "../../hooks/useEditHistoric";
+import { format } from "date-fns";
 
 interface HistoricFormProps {
   defaultValues?: HistoricProps | false;
@@ -78,13 +79,15 @@ export const HistoricForm: React.FC<HistoricFormProps> = ({
       <div className="mt-2 mb-2 block">
         <Label htmlFor="date" value="Date" />
       </div>
-      <TextInput
-        id="date"
-        type="date"
-        required
-        value={form.date}
-        onChange={(e) => setForm({ ...form, date: e.target.value })}
-      />
+      {form.date && (
+        <TextInput
+          id="date"
+          type="date"
+          required
+          value={format(new Date(form.date), "yyyy-MM-dd")}
+          onChange={(e) => setForm({ ...form, date: e.target.value })}
+        />
+      )}
       <div className="mt-2 mb-2 block">
         <Label htmlFor="category" value="Select category" />
       </div>

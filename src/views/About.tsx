@@ -1,13 +1,18 @@
-import { Label, Textarea, TextInput } from "flowbite-react";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+import { Label, TextInput } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { TitleSection } from "../components/blocks/TitleSection";
 import { SideBar } from "../components/nav/SideBar";
 import { ButtonForm } from "../components/ui/ButtonForm";
 import { TemplateBlock } from "../components/ui/TemplateBlock";
 import { AboutProps, useGetAbout } from "../hooks/useGetAbout";
+import { useEditAbout } from "../hooks/useEditAbout";
 
 export const About: React.FC = () => {
   const { data } = useGetAbout();
+  const aboutFn = useEditAbout();
+  const [content, setContent] = useState<string>("");
   const [about, setAbout] = useState<AboutProps>({
     content: "",
     urlPic: "",
@@ -15,31 +20,34 @@ export const About: React.FC = () => {
 
   useEffect(() => {
     if (data) {
+      setContent(data.content);
       setAbout({
-        content: data.content,
+        content: content,
         urlPic: data.urlPic,
       });
     }
   }, [data]);
+
+  const onSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    const data = {
+      content,
+      urlPic: about.urlPic,
+    };
+    await aboutFn.mutateAsync(data);
+  };
+
   return (
     <div className="relative">
       <SideBar />
       <TemplateBlock>
         <TitleSection title="About-me" />
-        <form className="mt-6">
+        <form className="mt-6" onSubmit={onSubmit}>
           <div className="mb-2 block">
             <Label htmlFor="about-content" value="Content about-me section" />
           </div>
-          <Textarea
-            id="about-content"
-            value={about.content}
-            placeholder="Here text content"
-            required={true}
-            rows={8}
-            onChange={(event) =>
-              setAbout({ ...about, content: event.target.value })
-            }
-          />
+          <ReactQuill value={content} onChange={setContent} />
+
           <div className="mt-2 mb-2 block">
             <Label htmlFor="url-pic" value="Url main picture" />
           </div>

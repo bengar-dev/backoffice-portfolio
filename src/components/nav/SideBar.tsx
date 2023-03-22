@@ -40,7 +40,7 @@ export const SideBar: React.FC = () => {
           <NavLink icon={<AiOutlineUser />} to="/about" value="About-me" />
           <NavLink
             icon={<AiOutlineHistory />}
-            to="/dashboard"
+            to="/historic"
             value="Historic"
           />
         </ul>

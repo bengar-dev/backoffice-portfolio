@@ -4,6 +4,7 @@ import "./css/index.css";
 import { useGetUserInfo } from "./hooks/useGetUserInfo";
 import { About } from "./views/About";
 import { Dashboard } from "./views/Dashboard";
+import { Historic } from "./views/Historic";
 import { SignIn } from "./views/SignIn";
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/about" element={<About />} />
+          <Route path="/historic" element={<Historic />} />
         </Routes>
       ) : (
         <Routes>

@@ -25,3 +25,8 @@ export const updateToaster = selector({
     set(toasterState, newToaster);
   },
 });
+
+export const modalState = atom<boolean>({
+  key: "modalState",
+  default: false,
+});

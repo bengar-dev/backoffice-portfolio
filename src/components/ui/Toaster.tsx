@@ -45,7 +45,7 @@ export const Toaster: React.FC = () => {
   return (
     <>
       {toaster.display && (
-        <div className="absolute top-10 right-4 space-x-4 divide-x divide-gray-200 dark:divide-gray-700">
+        <div className="fixed z-20 top-10 right-4 space-x-4 divide-x divide-gray-200 dark:divide-gray-700">
           <Toast>
             <div
               className={`text-lg flex items-center justify-center h-5 w-5 ${handleStyle(

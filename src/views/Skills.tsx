@@ -9,9 +9,12 @@ import { SideBar } from "../components/nav/SideBar";
 import { LoadingPage } from "../components/ui/LoadingPage";
 import { ModalComponent } from "../components/ui/ModalComponent";
 import { TemplateBlock } from "../components/ui/TemplateBlock";
+import { Toaster } from "../components/ui/Toaster";
+import { useDeleteSkill } from "../hooks/useDeleteSkill";
 import { SkillsProps, useGetSkills } from "../hooks/useGetSkills";
 
 export const Skills: React.FC = () => {
+  const deleteSkill = useDeleteSkill();
   const { data: skills, isLoading } = useGetSkills();
   const [title, setTitle] = useState<string>("Add new skill");
   const [defaultValuesForm, setDefaultValuesForm] = useState<
@@ -39,11 +42,16 @@ export const Skills: React.FC = () => {
     modal(true);
   };
 
-  const handleDeleteForm = () => {
-    console.log("ddd");
+  const handleDeleteForm = async (
+    event: React.MouseEvent<HTMLButtonElement>,
+    id: string
+  ) => {
+    event.preventDefault();
+    await deleteSkill.mutateAsync(id);
   };
   return (
     <div className="relative">
+      <Toaster />
       <SideBar />
       <TemplateBlock>
         <TitleSection title="Skills" />

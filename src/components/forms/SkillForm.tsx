@@ -3,12 +3,16 @@ import { useEffect, useState } from "react";
 import { SkillsProps } from "../../hooks/useGetSkills";
 import { ButtonForm } from "../ui/ButtonForm";
 import _ from "lodash";
+import { useAddSkill } from "../../hooks/useAddSkill";
+import { useEditSkill } from "../../hooks/useEditSkill";
 
 interface SkillFormProps {
   defaultValues?: SkillsProps | false;
 }
 
 export const SkillForm: React.FC<SkillFormProps> = ({ defaultValues }) => {
+  const addSkill = useAddSkill();
+  const editSkill = useEditSkill();
   const [form, setForm] = useState<SkillsProps>({
     description: "",
     name: "",
@@ -28,7 +32,15 @@ export const SkillForm: React.FC<SkillFormProps> = ({ defaultValues }) => {
     }
   }, [defaultValues]);
 
-  const onSubmit = () => {};
+  const onSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    if (defaultValues) {
+      console.log(form);
+      await editSkill.mutateAsync(form);
+    } else {
+      await addSkill.mutateAsync(form);
+    }
+  };
   return (
     <form className="flex flex-col" onSubmit={onSubmit}>
       <div className="mb-2 block">

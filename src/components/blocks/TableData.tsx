@@ -129,6 +129,8 @@ function handleData(data: any, key: string, handleDisplayFunction: any) {
     case "title":
       return <span className="font-bold text-blue-500">{data[key]}</span>;
     case "createdAt":
+      return format(new Date(data[key]), "dd/MM/yyyy HH:mm");
+    case "date":
       return format(new Date(data[key]), "dd/MM/yyyy");
     case "category":
       return renderIconForHistoricCategory(data[key]);

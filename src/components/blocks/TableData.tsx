@@ -59,37 +59,7 @@ export const TableData: React.FC<TableDataProps> = ({
           >
             {headers.map((el, index) => (
               <Table.Cell key={`cell-${data[el]}-${index}`}>
-                {el === "id" ? (
-                  <Badge color="info" className="w-max">
-                    {data[el]}
-                  </Badge>
-                ) : el === "name" ? (
-                  <span className="font-bold">{data[el]}</span>
-                ) : el === "title" ? (
-                  <span className="font-bold text-blue-500">{data[el]}</span>
-                ) : el === "createdAt" ||
-                  el === "updatedAt" ||
-                  el === "date" ? (
-                  format(new Date(data[el]), "dd/MM/yyyy")
-                ) : el === "category" ? (
-                  renderIconForHistoricCategory(data[el])
-                ) : el === "display" || el === "read" ? (
-                  <ToggleButton
-                    func={handleDisplayFunction}
-                    status={data[el] ? data[el] : false}
-                    id={data.id}
-                  />
-                ) : el === "skillsId" ? (
-                  <div className="flex space-x-1">
-                    {handleSkillObject(data[el]).map((el) => (
-                      <Badge key={`badge-${el}`} color="purple">
-                        {el}
-                      </Badge>
-                    ))}
-                  </div>
-                ) : (
-                  data[el]
-                )}
+                {handleData(data, el, handleDisplayFunction)}
               </Table.Cell>
             ))}
             <Table.Cell>
@@ -144,6 +114,53 @@ function handleSkillObject(skillsId: SkillsProps[]): string[] {
   const newArray: string[] = [];
   skillsId.forEach((el) => newArray.push(el.name));
   return newArray;
+}
+
+function handleData(data: any, key: string, handleDisplayFunction: any) {
+  switch (key) {
+    case "id":
+      return (
+        <Badge color="info" className="w-max">
+          {data[key]}
+        </Badge>
+      );
+    case "name":
+      return <span className="font-bold">{data[key]}</span>;
+    case "title":
+      return <span className="font-bold text-blue-500">{data[key]}</span>;
+    case "createdAt":
+      return format(new Date(data[key]), "dd/MM/yyyy");
+    case "category":
+      return renderIconForHistoricCategory(data[key]);
+    case "display":
+      return (
+        <ToggleButton
+          func={handleDisplayFunction}
+          status={data[key] ? data[key] : false}
+          id={data.id}
+        />
+      );
+    case "read":
+      return (
+        <ToggleButton
+          func={handleDisplayFunction}
+          status={data[key] ? data[key] : false}
+          id={data.id}
+        />
+      );
+    case "skillsId":
+      return (
+        <div className="flex space-x-1">
+          {handleSkillObject(data[key]).map((el) => (
+            <Badge key={`badge-${el}`} color="purple">
+              {el}
+            </Badge>
+          ))}
+        </div>
+      );
+    default:
+      return data[key];
+  }
 }
 
 function filterDataWithDynamicColumns<T>(data: T[], column: Array<keyof T>) {

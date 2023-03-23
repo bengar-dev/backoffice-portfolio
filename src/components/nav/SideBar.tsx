@@ -2,6 +2,7 @@ import {
   AiFillDashboard,
   AiFillMessage,
   AiFillPicture,
+  AiFillSetting,
   AiOutlineHistory,
   AiOutlineLogout,
   AiOutlineUser,
@@ -60,6 +61,7 @@ export const SideBar: React.FC = () => {
             value="Messages"
             count={countMessages}
           />
+          <NavLink icon={<AiFillSetting />} to="/settings" value="Settings" />
         </ul>
         <div className="absolute bottom-0 w-full p-4">
           <ButtonForm

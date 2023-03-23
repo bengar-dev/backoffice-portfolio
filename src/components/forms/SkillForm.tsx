@@ -77,7 +77,7 @@ export const SkillForm: React.FC<SkillFormProps> = ({ defaultValues }) => {
       />
       <div className="mt-2">
         <ButtonForm
-          loading={false}
+          loading={editSkill.isLoading || addSkill.isLoading}
           type="submit"
           value="Submit"
           fullWidth

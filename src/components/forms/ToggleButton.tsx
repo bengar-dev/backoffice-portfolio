@@ -1,4 +1,4 @@
-import { ChangeEventHandler, useState } from "react";
+import { ChangeEventHandler, useEffect, useState } from "react";
 
 interface ToggleButtonProps {
   status: boolean;
@@ -12,6 +12,10 @@ export const ToggleButton: React.FC<ToggleButtonProps> = ({
   status,
 }) => {
   const [check, setCheck] = useState<boolean>(status);
+
+  useEffect(() => {
+    setCheck(status);
+  }, [status]);
 
   const handleChecked = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (!func || !id) return;

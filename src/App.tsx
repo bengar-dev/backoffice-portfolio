@@ -7,6 +7,7 @@ import { Dashboard } from "./views/Dashboard";
 import { Historic } from "./views/Historic";
 import { Messages } from "./views/Messages";
 import { Projects } from "./views/Projects";
+import { Settings } from "./views/Settings";
 import { SignIn } from "./views/SignIn";
 import { Skills } from "./views/Skills";
 
@@ -28,6 +29,7 @@ function App() {
           <Route path="/skills" element={<Skills />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/messages" element={<Messages />} />
+          <Route path="/settings" element={<Settings />} />
         </Routes>
       ) : (
         <Routes>

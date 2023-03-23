@@ -61,12 +61,12 @@ export const About: React.FC = () => {
               setAbout({ ...about, urlPic: event.target.value })
             }
           />
-          <div className="mt-2 w-1/12 mr-0 ml-auto">
+          <div className="mt-2">
             <ButtonForm
               loading={false}
               type="submit"
-              value="Submit"
-              color="success"
+              value="Update"
+              color="warning"
               fullWidth
             />
           </div>

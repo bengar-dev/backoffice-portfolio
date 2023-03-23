@@ -5,6 +5,7 @@ import { useGetUserInfo } from "./hooks/useGetUserInfo";
 import { About } from "./views/About";
 import { Dashboard } from "./views/Dashboard";
 import { Historic } from "./views/Historic";
+import { Messages } from "./views/Messages";
 import { Projects } from "./views/Projects";
 import { SignIn } from "./views/SignIn";
 import { Skills } from "./views/Skills";
@@ -26,6 +27,7 @@ function App() {
           <Route path="/historic" element={<Historic />} />
           <Route path="/skills" element={<Skills />} />
           <Route path="/projects" element={<Projects />} />
+          <Route path="/messages" element={<Messages />} />
         </Routes>
       ) : (
         <Routes>

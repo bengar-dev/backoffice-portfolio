@@ -1,5 +1,6 @@
 import {
   AiFillDashboard,
+  AiFillMessage,
   AiFillPicture,
   AiOutlineHistory,
   AiOutlineLogout,
@@ -7,11 +8,15 @@ import {
 } from "react-icons/ai";
 import { SiReact } from "react-icons/si";
 import { useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { countMessagesState } from "../../atoms/messages";
+import { useGetMessages } from "../../hooks/useGetMessages";
 import { ButtonForm } from "../ui/ButtonForm";
 import { NavLink } from "./NavLink";
 
 export const SideBar: React.FC = () => {
   const navigate = useNavigate();
+  const messages = useGetMessages();
 
   const handleLogout = (event: React.MouseEvent<HTMLButtonElement>): void => {
     event.preventDefault();
@@ -21,6 +26,8 @@ export const SideBar: React.FC = () => {
       window.location.reload();
     }, 1000);
   };
+
+  const [countMessages, setCountMessages] = useRecoilState(countMessagesState);
 
   return (
     <aside
@@ -47,6 +54,12 @@ export const SideBar: React.FC = () => {
           />
           <NavLink icon={<SiReact />} to="/skills" value="Skills" />
           <NavLink icon={<AiFillPicture />} to="/projects" value="Projects" />
+          <NavLink
+            icon={<AiFillMessage />}
+            to="/messages"
+            value="Messages"
+            count={countMessages}
+          />
         </ul>
         <div className="absolute bottom-0 w-full p-4">
           <ButtonForm

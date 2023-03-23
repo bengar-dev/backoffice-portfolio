@@ -1,17 +1,10 @@
 import { Badge, Button, Table } from "flowbite-react";
 import { format } from "date-fns";
-import { AiFillEdit } from "react-icons/ai";
+import { AiFillEdit, AiFillEye } from "react-icons/ai";
 import { FiTrash2 } from "react-icons/fi";
 import { renderIconForHistoricCategory } from "../../services/categoryHistorics";
 import { ToggleButton } from "../forms/ToggleButton";
 import { SkillsProps } from "../../hooks/useGetSkills";
-
-/**
- * To make edit function =>
- * Add new prop to TableData Component => to handle open modal form
- * In FormSkillSection component => add new prop as boolean to tell that we are in edit mode.
- * In FormSkillSection component => add new prop to handle default values ( data )
- */
 
 interface TableDataProps {
   headers: string[];
@@ -19,6 +12,10 @@ interface TableDataProps {
   target: string;
   viewEnable?: boolean;
   editEnable?: boolean;
+  handleViewFunction?: (
+    event: React.MouseEvent<HTMLButtonElement>,
+    id: string
+  ) => void;
   handleDisplayFunction?: (
     event: React.ChangeEvent<HTMLInputElement>,
     id: string
@@ -38,6 +35,8 @@ export const TableData: React.FC<TableDataProps> = ({
   data,
   target,
   editEnable,
+  viewEnable,
+  handleViewFunction,
   handleDisplayFunction,
   handleEditFunction,
   handleDeleteFunction,
@@ -74,10 +73,10 @@ export const TableData: React.FC<TableDataProps> = ({
                   format(new Date(data[el]), "dd/MM/yyyy")
                 ) : el === "category" ? (
                   renderIconForHistoricCategory(data[el])
-                ) : el === "display" ? (
+                ) : el === "display" || el === "read" ? (
                   <ToggleButton
                     func={handleDisplayFunction}
-                    status={data[el]}
+                    status={data[el] ? data[el] : false}
                     id={data.id}
                   />
                 ) : el === "skillsId" ? (
@@ -95,17 +94,32 @@ export const TableData: React.FC<TableDataProps> = ({
             ))}
             <Table.Cell>
               <div className="flex w-full gap-2 text-lg justify-end">
-                <Button
-                  size="sm"
-                  color="warning"
-                  onClick={(event) => {
-                    if (editEnable && handleEditFunction) {
-                      handleEditFunction(event, data.id);
-                    }
-                  }}
-                >
-                  <AiFillEdit />
-                </Button>{" "}
+                {viewEnable && (
+                  <Button
+                    size="sm"
+                    color="dark"
+                    onClick={(event) => {
+                      if (viewEnable && handleViewFunction) {
+                        handleViewFunction(event, data.id);
+                      }
+                    }}
+                  >
+                    <AiFillEye />
+                  </Button>
+                )}
+                {editEnable && (
+                  <Button
+                    size="sm"
+                    color="warning"
+                    onClick={(event) => {
+                      if (editEnable && handleEditFunction) {
+                        handleEditFunction(event, data.id);
+                      }
+                    }}
+                  >
+                    <AiFillEdit />
+                  </Button>
+                )}{" "}
                 <Button
                   onClick={(event) => {
                     if (handleDeleteFunction) {

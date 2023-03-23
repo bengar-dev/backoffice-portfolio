@@ -16,7 +16,7 @@ export const ModalComponent: React.FC<ModalComponentProps> = ({
   const [toggleModal, setToggleModal] = useRecoilState<boolean>(modalState);
   return (
     <Modal
-      dismissible={false}
+      dismissible={true}
       show={toggleModal}
       onClose={() => setToggleModal(false)}
     >

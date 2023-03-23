@@ -1,7 +1,10 @@
 import { Badge, Button, Label, TextInput } from "flowbite-react";
-import { useState } from "react";
+import _ from "lodash";
+import { useEffect, useState } from "react";
 import { AiFillPlusCircle, AiOutlinePlusCircle } from "react-icons/ai";
 import ReactQuill from "react-quill";
+import { useAddProject } from "../../hooks/useAddProject";
+import { useEditProject } from "../../hooks/useEditProject";
 import { ProjectsProps } from "../../hooks/useGetProjects";
 import { useGetSkills } from "../../hooks/useGetSkills";
 import { ButtonForm } from "../ui/ButtonForm";
@@ -11,6 +14,8 @@ interface ProjectFormProps {
 }
 
 export const ProjectForm: React.FC<ProjectFormProps> = ({ defaultValues }) => {
+  const addProject = useAddProject();
+  const editProject = useEditProject();
   const { data: skills } = useGetSkills();
   const [content, setContent] = useState<string>("");
   const [pictureInput, setPictureInput] = useState<string>("");
@@ -63,7 +68,40 @@ export const ProjectForm: React.FC<ProjectFormProps> = ({ defaultValues }) => {
     }
   };
 
-  const onSubmit = () => {};
+  useEffect(() => {
+    if (defaultValues && !_.isEqual(defaultValues, form)) {
+      setContent(defaultValues.description);
+      setForm(defaultValues);
+    }
+    if (!defaultValues) {
+      setContent("");
+      setForm({
+        description: "",
+        name: "",
+        pictures: [],
+        skillsId: [],
+        preview: "",
+        urlImage: "",
+        github: "",
+        live: "",
+      });
+    }
+  }, [defaultValues]);
+
+  useEffect(() => {
+    if (!_.isEqual(form.description, content)) {
+      setForm({ ...form, description: content });
+    }
+  }, [form, content]);
+
+  const onSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    if (defaultValues) {
+      await editProject.mutateAsync(form);
+    } else {
+      await addProject.mutateAsync(form);
+    }
+  };
   return (
     <form className="w-full flex flex-col" onSubmit={onSubmit}>
       <div className="mb-2 block">
@@ -75,7 +113,7 @@ export const ProjectForm: React.FC<ProjectFormProps> = ({ defaultValues }) => {
         placeholder="Name"
         required={true}
         value={form.name}
-        onChange={(e) => setForm({ ...form, description: e.target.value })}
+        onChange={(e) => setForm({ ...form, name: e.target.value })}
       />
       <div className="mt-2 mb-2 block">
         <Label htmlFor="description" value="Description" />

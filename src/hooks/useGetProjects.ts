@@ -8,7 +8,7 @@ export type ProjectsProps = {
   description: string;
   urlImage: string;
   pictures: string[];
-  skillsId?: SkillsProps[];
+  skillsId: SkillsProps[];
   github?: string;
   live?: string;
   id?: string;

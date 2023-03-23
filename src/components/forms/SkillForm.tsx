@@ -35,7 +35,6 @@ export const SkillForm: React.FC<SkillFormProps> = ({ defaultValues }) => {
   const onSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     if (defaultValues) {
-      console.log(form);
       await editSkill.mutateAsync(form);
     } else {
       await addSkill.mutateAsync(form);

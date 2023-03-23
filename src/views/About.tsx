@@ -8,6 +8,7 @@ import { ButtonForm } from "../components/ui/ButtonForm";
 import { TemplateBlock } from "../components/ui/TemplateBlock";
 import { AboutProps, useGetAbout } from "../hooks/useGetAbout";
 import { useEditAbout } from "../hooks/useEditAbout";
+import { Toaster } from "../components/ui/Toaster";
 
 export const About: React.FC = () => {
   const { data } = useGetAbout();
@@ -39,6 +40,7 @@ export const About: React.FC = () => {
 
   return (
     <div className="relative">
+      <Toaster />
       <SideBar />
       <TemplateBlock>
         <TitleSection title="About-me" />

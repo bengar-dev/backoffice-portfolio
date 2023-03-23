@@ -165,7 +165,6 @@ export const ProjectForm: React.FC<ProjectFormProps> = ({ defaultValues }) => {
         id="github"
         type="url"
         placeholder="Repo url"
-        required={true}
         value={form.github}
         onChange={(e) => setForm({ ...form, github: e.target.value })}
       />
@@ -176,7 +175,6 @@ export const ProjectForm: React.FC<ProjectFormProps> = ({ defaultValues }) => {
         id="live"
         type="url"
         placeholder="Live app url"
-        required={true}
         value={form.live}
         onChange={(e) => setForm({ ...form, live: e.target.value })}
       />

@@ -3,6 +3,7 @@ import { format } from "date-fns";
 import { AiFillEdit } from "react-icons/ai";
 import { FiTrash2 } from "react-icons/fi";
 import { renderIconForHistoricCategory } from "../../services/categoryHistorics";
+import { ToggleButton } from "../forms/ToggleButton";
 
 /**
  * To make edit function =>
@@ -17,6 +18,10 @@ interface TableDataProps {
   target: string;
   viewEnable?: boolean;
   editEnable?: boolean;
+  handleDisplayFunction?: (
+    event: React.ChangeEvent<HTMLInputElement>,
+    id: string
+  ) => void;
   handleEditFunction?: (
     event: React.MouseEvent<HTMLButtonElement>,
     id: string
@@ -32,6 +37,7 @@ export const TableData: React.FC<TableDataProps> = ({
   data,
   target,
   editEnable,
+  handleDisplayFunction,
   handleEditFunction,
   handleDeleteFunction,
 }) => {
@@ -66,7 +72,11 @@ export const TableData: React.FC<TableDataProps> = ({
                 ) : el === "category" ? (
                   renderIconForHistoricCategory(data[el])
                 ) : el === "display" ? (
-                  "display"
+                  <ToggleButton
+                    func={handleDisplayFunction}
+                    status={data[el]}
+                    id={data.id}
+                  />
                 ) : (
                   data[el]
                 )}

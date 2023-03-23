@@ -12,8 +12,10 @@ import { TemplateBlock } from "../components/ui/TemplateBlock";
 import { Toaster } from "../components/ui/Toaster";
 import { useDeleteSkill } from "../hooks/useDeleteSkill";
 import { SkillsProps, useGetSkills } from "../hooks/useGetSkills";
+import { useSwitchDisplaySkill } from "../hooks/useSwitchDisplaySkill";
 
 export const Skills: React.FC = () => {
+  const displaySkill = useSwitchDisplaySkill();
   const deleteSkill = useDeleteSkill();
   const { data: skills, isLoading } = useGetSkills();
   const [title, setTitle] = useState<string>("Add new skill");
@@ -27,6 +29,13 @@ export const Skills: React.FC = () => {
     modal(true);
     setTitle("Add new skill");
     setDefaultValuesForm(false);
+  };
+
+  const handleDisplayButton = async (
+    event: React.ChangeEvent<HTMLInputElement>,
+    id: string
+  ) => {
+    await displaySkill.mutateAsync({ display: event.target.checked, id });
   };
 
   const handleEditForm = (
@@ -72,6 +81,7 @@ export const Skills: React.FC = () => {
               handleEditFunction={handleEditForm}
               editEnable
               handleDeleteFunction={handleDeleteForm}
+              handleDisplayFunction={handleDisplayButton}
             />
           )}
           <LoadingPage isLoading={isLoading} />

@@ -4,6 +4,7 @@ import { AiFillEdit } from "react-icons/ai";
 import { FiTrash2 } from "react-icons/fi";
 import { renderIconForHistoricCategory } from "../../services/categoryHistorics";
 import { ToggleButton } from "../forms/ToggleButton";
+import { SkillsProps } from "../../hooks/useGetSkills";
 
 /**
  * To make edit function =>
@@ -63,6 +64,8 @@ export const TableData: React.FC<TableDataProps> = ({
                   <Badge color="info" className="w-max">
                     {data[el]}
                   </Badge>
+                ) : el === "name" ? (
+                  <span className="font-bold">{data[el]}</span>
                 ) : el === "title" ? (
                   <span className="font-bold text-blue-500">{data[el]}</span>
                 ) : el === "createdAt" ||
@@ -77,6 +80,14 @@ export const TableData: React.FC<TableDataProps> = ({
                     status={data[el]}
                     id={data.id}
                   />
+                ) : el === "skillsId" ? (
+                  <div className="flex space-x-1">
+                    {handleSkillObject(data[el]).map((el) => (
+                      <Badge key={`badge-${el}`} color="purple">
+                        {el}
+                      </Badge>
+                    ))}
+                  </div>
                 ) : (
                   data[el]
                 )}
@@ -114,6 +125,12 @@ export const TableData: React.FC<TableDataProps> = ({
     </Table>
   );
 };
+
+function handleSkillObject(skillsId: SkillsProps[]): string[] {
+  const newArray: string[] = [];
+  skillsId.forEach((el) => newArray.push(el.name));
+  return newArray;
+}
 
 function filterDataWithDynamicColumns<T>(data: T[], column: Array<keyof T>) {
   const newArray: any[] = [];

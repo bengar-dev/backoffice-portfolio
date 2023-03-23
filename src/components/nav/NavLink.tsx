@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { Link, Location } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 

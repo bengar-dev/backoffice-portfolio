@@ -1,5 +1,6 @@
 import {
   AiFillDashboard,
+  AiFillPicture,
   AiOutlineHistory,
   AiOutlineLogout,
   AiOutlineUser,
@@ -45,6 +46,7 @@ export const SideBar: React.FC = () => {
             value="Historic"
           />
           <NavLink icon={<SiReact />} to="/skills" value="Skills" />
+          <NavLink icon={<AiFillPicture />} to="/projects" value="Projects" />
         </ul>
         <div className="absolute bottom-0 w-full p-4">
           <ButtonForm

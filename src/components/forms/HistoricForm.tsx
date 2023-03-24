@@ -47,7 +47,7 @@ export const HistoricForm: React.FC<HistoricFormProps> = ({
     if (mutationHistoric.isSuccess || editHistoric.isSuccess) {
       setForm({
         category: "school",
-        date: "",
+        date: new Date().toDateString(),
         description: "",
       });
     }
@@ -57,7 +57,7 @@ export const HistoricForm: React.FC<HistoricFormProps> = ({
     if (!defaultValues) {
       setForm({
         category: "school",
-        date: "",
+        date: new Date().toDateString(),
         description: "",
       });
     }

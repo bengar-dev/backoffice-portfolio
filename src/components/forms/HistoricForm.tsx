@@ -27,6 +27,7 @@ export const HistoricForm: React.FC<HistoricFormProps> = ({
   const [form, setForm] = useState<HistoricProps>({
     category: "school",
     date: "",
+    title: "",
     description: "",
   });
 
@@ -49,6 +50,7 @@ export const HistoricForm: React.FC<HistoricFormProps> = ({
         category: "school",
         date: new Date().toDateString(),
         description: "",
+        title: "",
       });
     }
     if (defaultValues && !_.isEqual(defaultValues, form)) {
@@ -59,12 +61,24 @@ export const HistoricForm: React.FC<HistoricFormProps> = ({
         category: "school",
         date: new Date().toDateString(),
         description: "",
+        title: "",
       });
     }
   }, [mutationHistoric.isSuccess, editHistoric.isSuccess, defaultValues]);
 
   return (
     <form className="flex flex-col" onSubmit={onSubmit}>
+      <div className="mb-2 block">
+        <Label htmlFor="title" value="Title" />
+      </div>
+      <TextInput
+        id="title"
+        type="text"
+        placeholder="Historic title"
+        required={true}
+        value={form.title}
+        onChange={(e) => setForm({ ...form, title: e.target.value })}
+      />
       <div className="mb-2 block">
         <Label htmlFor="description" value="Description" />
       </div>

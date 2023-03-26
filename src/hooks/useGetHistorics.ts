@@ -6,6 +6,7 @@ export type HistoricProps = {
   description: string;
   category: HistoricCategory;
   id?: string;
+  title?: string;
 };
 
 export type HistoricCategory =

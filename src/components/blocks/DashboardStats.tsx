@@ -1,4 +1,6 @@
 import React from "react";
+import { useResetStats } from "../../hooks/useResetStats";
+import { ButtonForm } from "../ui/ButtonForm";
 import { StatsCard } from "../ui/StatsCard";
 
 interface DashboardStatsProps {
@@ -14,8 +16,22 @@ type StatsProps = {
 };
 
 export const DashboardStats: React.FC<DashboardStatsProps> = ({ data }) => {
+  const reset = useResetStats();
+
+  const handleReset = async () => {
+    await reset.mutateAsync();
+  };
+
   return (
-    <div className="mt-6 w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+    <div className="relative mt-6 w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+      <div className="absolute top-1 right-1">
+        <ButtonForm
+          loading={reset.isLoading}
+          type="button"
+          value="Reset view stats"
+          func={handleReset}
+        />
+      </div>
       <div className="border-t border-gray-200 dark:border-gray-600">
         <div className="p-4 bg-white rounded-lg md:p-8 dark:bg-gray-800">
           <dl className="grid max-w-screen-xl grid-cols-2 gap-8 p-4 mx-auto text-gray-900 sm:grid-cols-3 xl:grid-cols-6 dark:text-white sm:p-8">
